@@ -1,0 +1,34 @@
+# Normalize line endings for all text files
+* text=auto eol=lf
+
+# Treat common code files explicitly as text
+*.py text
+*.html text
+*.css text
+*.js text
+*.json text
+*.md text
+*.txt text
+*.xml text
+
+# Models are binary files
+*.keras binary
+*.h5 binary
+*.pkl binary
+*.pt  binary
+*.onnx binary
+
+# Images are binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+
+# Notebooks treated as text to avoid breaking diff
+*.ipynb text
+
+# Keep large files from merging incorrectly
+*.zip binary
+*.tar binary
+*.gz  binary

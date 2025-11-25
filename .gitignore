@@ -1,0 +1,48 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.pickle
+
+# --- Virtual environment ---
+venv/
+env/
+.venv/
+
+# --- Model files (too heavy for GitHub) ---
+backend/models/*.keras
+backend/models/*.h5
+backend/models/*.tflite
+backend/models/*.pkl
+backend/models/*.pt
+backend/models/*.onnx
+backend/models/*.joblib
+
+# If you want to keep only best_model.keras, comment this line:
+# !backend/models/best_model.keras
+
+# --- Jupyter Notebook checkpoints ---
+.ipynb_checkpoints/
+
+# --- Environment & secrets ---
+.env
+*.env
+
+# --- Uploaded images ---
+backend/uploaded_img/
+
+# --- Logs ---
+*.log
+
+# --- OS trash ---
+Thumbs.db
+.DS_Store
+
+# --- IDE specific ---
+.vscode/
+.idea/
+
+# --- Flask specific ---
+instance/

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Page</title>
+    <script>
+        function showDetails() {
+            const snakeNameElem = document.getElementById('snake_name');
+            if (!snakeNameElem) return;
+
+            const snakeName = snakeNameElem.innerText;
+            const detailsDiv = document.getElementById('details');
+            detailsDiv.innerHTML = "Loading details...";
+
+            fetch('/get_details', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({snake_name: snakeName})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.snake_details) {
+                    detailsDiv.innerHTML = `<pre>${JSON.stringify(data.snake_details, null, 2)}</pre>`;
+                } else {
+                    detailsDiv.innerHTML = "No details available.";
+                }
+            })
+            .catch(err => {
+                detailsDiv.innerHTML = "Error fetching details";
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Snake Prediction</h1>
+
+    {% if not image_uploaded %}
+    <form method="post" enctype="multipart/form-data">
+        <label>Upload snake image:</label>
+        <input type="file" name="image" required>
+        <button type="submit">Predict</button>
+    </form>
+    {% else %}
+    {% if unknown_snake %}
+        <h2>Prediction Result:</h2>
+        <p style="color:red;">{{ message }}</p>
+    {% else %}
+        <h2>Prediction Result:</h2>
+        <p><strong>Snake Name:</strong> <span id="snake_name">{{ snake_name }}</span></p>
+        <p><strong>Weighted Confidence:</strong> {{ confidence }}%</p>
+        <p><strong>Model Confidence:</strong> {{ model_conf }}%</p>
+        <p><strong>Similarity Score:</strong> {{ similarity }}%</p>
+
+        {% if first_aid %}
+            <h3>First Aid Steps (Venomous Snake):</h3>
+            <ol>
+                {% for step in first_aid %}
+                    <li>{{ step }}</li>
+                {% endfor %}
+            </ol>
+        {% endif %}
+
+        <button onclick="showDetails()">Show More Snake Info</button>
+        <div id="details" style="margin-top:20px;"></div>
+    {% endif %}
+    {% endif %}
+
+    {% if error %}
+    <p style="color:red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
