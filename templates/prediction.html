@@ -1,8 +1,209 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Prediction Page</title>
+    <title>Snake Prediction</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 25px 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        h2, h3 {
+            color: #222;
+            font-weight: 600;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="file"] {
+            margin-top: 8px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 18px;
+            background: #0066ff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #0052cc;
+        }
+
+        .result-card {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9fafc;
+            border-left: 5px solid #4285f4;
+            border-radius: 10px;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #111;
+        }
+
+        .value {
+            font-weight: 600;
+            color: #0066cc;
+        }
+
+        /* INFO CARD FOR GEMINI OUTPUT */
+        .info-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .info-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 5px;
+        }
+
+        .scientific {
+            font-style: italic;
+            color: #666;
+        }
+
+        .section {
+            margin-top: 18px;
+            padding: 15px;
+            background: #f3f7ff;
+            border-left: 4px solid #0066cc;
+            border-radius: 8px;
+        }
+
+        .section h3 {
+            margin-top: 0;
+            color: #003d80;
+        }
+
+        .section ol li,
+        .section ul li {
+            margin-bottom: 6px;
+        }
+
+        .timestamp {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .first-aid-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff3cd;
+            border-left: 5px solid #d39e00;
+            border-radius: 10px;
+        }
+
+        .error {
+            color: red;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 15px;
+        }
+/* Animation */
+.fade-in {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header Layout */
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badge {
+    padding: 5px 12px;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Venom Grid */
+.venom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+/* Collapsible Sections */
+.collapsible h3 {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.section-content {
+    margin-top: 8px;
+    display: none; /* Hidden until clicked */
+}
+
+.section.open .section-content {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+    </style>
+
     <script>
+        function toggleSection(header) {
+    const section = header.parentElement;
+    section.classList.toggle("open");
+
+    if (section.classList.contains("open")) {
+        header.innerHTML = header.innerHTML.replace("▼", "▲");
+    } else {
+        header.innerHTML = header.innerHTML.replace("▲", "▼");
+    }
+}
+
         function showDetails() {
             const snakeNameElem = document.getElementById('snake_name');
             if (!snakeNameElem) return;
@@ -14,58 +215,133 @@
             fetch('/get_details', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({snake_name: snakeName})
+                body: JSON.stringify({ snake_name: snakeName })
             })
             .then(response => response.json())
             .then(data => {
-                if (data.snake_details) {
-                    detailsDiv.innerHTML = `<pre>${JSON.stringify(data.snake_details, null, 2)}</pre>`;
-                } else {
-                    detailsDiv.innerHTML = "No details available.";
-                }
-            })
+
+    if (!data.snake_details) {
+        detailsDiv.innerHTML = "No details available.";
+        return;
+    }
+
+    const info = data.snake_details;
+
+    const venomColor =
+        info.venom_type.toLowerCase().includes("neuro") ? "#0052cc" :
+        info.venom_type.toLowerCase().includes("hemo") ? "#cc0000" :
+        info.venom_type.toLowerCase().includes("cyto") ? "#7c0099" : "#333";
+
+    const badgeColor = info.venomous === "yes" ? "#cc0000" : "#00aa55";
+    const badgeText = info.venomous === "yes" ? "VENOMOUS" : "NON-VENOMOUS";
+
+    detailsDiv.innerHTML = `
+        <div class="info-card fade-in">
+
+            <div class="info-header">
+                <h2>${info.canonical_name}</h2>
+                <div class="badge" style="background:${badgeColor};">${badgeText}</div>
+            </div>
+
+            <p class="scientific">Scientific Name: ${info.scientific_name}</p>
+
+            <div class="section">
+                <h3>🧪 Venom Information</h3>
+                <div class="venom-grid">
+                    <p><strong>Type:</strong> <span style="color:${venomColor}; font-weight:700;">${info.venom_type}</span></p>
+                    <p><strong>Emergency:</strong> ${info.emergency_priority}</p>
+                </div>
+            </div>
+
+            <div class="section collapsible">
+                <h3 onclick="toggleSection(this)">🌍 Habitat ▼</h3>
+                <p class="section-content">${info.habitat}</p>
+            </div>
+
+            <div class="section collapsible">
+                <h3 onclick="toggleSection(this)">🚨 First Aid ▼</h3>
+                <ol class="section-content">
+                    ${info.first_aid.map(step => `<li>${step}</li>`).join("")}
+                </ol>
+            </div>
+
+            <div class="section collapsible">
+                <h3 onclick="toggleSection(this)">⚠ Safety Tips ▼</h3>
+                <ul class="section-content">
+                    ${info.safety_info.map(tip => `<li>${tip}</li>`).join("")}
+                </ul>
+            </div>
+
+            <div class="section collapsible">
+                <h3 onclick="toggleSection(this)">📚 Verified Sources ▼</h3>
+                <ul class="section-content">
+                    ${info.verify_sources.map(src => `<li>${src}</li>`).join("")}
+                </ul>
+            </div>
+
+            <p class="timestamp"><strong>Updated:</strong> ${info.timestamp}</p>
+
+        </div>
+    `;
+})
+
             .catch(err => {
                 detailsDiv.innerHTML = "Error fetching details";
             });
         }
     </script>
 </head>
+
 <body>
-    <h1>Snake Prediction</h1>
+    <div class="container">
 
-    {% if not image_uploaded %}
-    <form method="post" enctype="multipart/form-data">
-        <label>Upload snake image:</label>
-        <input type="file" name="image" required>
-        <button type="submit">Predict</button>
-    </form>
-    {% else %}
-    {% if unknown_snake %}
-        <h2>Prediction Result:</h2>
-        <p style="color:red;">{{ message }}</p>
-    {% else %}
-        <h2>Prediction Result:</h2>
-        <p><strong>Snake Name:</strong> <span id="snake_name">{{ snake_name }}</span></p>
-        <p><strong>Weighted Confidence:</strong> {{ confidence }}%</p>
-        <p><strong>Model Confidence:</strong> {{ model_conf }}%</p>
-        <p><strong>Similarity Score:</strong> {{ similarity }}%</p>
+        <h1>Snake Species Prediction</h1>
 
-        {% if first_aid %}
-            <h3>First Aid Steps (Venomous Snake):</h3>
-            <ol>
-                {% for step in first_aid %}
-                    <li>{{ step }}</li>
-                {% endfor %}
-            </ol>
+        {% if not image_uploaded %}
+        <form method="post" enctype="multipart/form-data">
+            <label>Upload Snake Image:</label>
+            <input type="file" name="image" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% else %}
+
+            {% if unknown_snake %}
+            <div class="result-card">
+                <h2>Prediction Result</h2>
+                <p style="color:red; font-weight:600;">{{ message }}</p>
+            </div>
+
+            {% else %}
+            <div class="result-card">
+                <h2>Prediction Result</h2>
+
+                <p><span class="label">Snake Name: </span> <span class="value" id="snake_name">{{ snake_name }}</span></p>
+                <p><span class="label">Weighted Confidence: </span> <span class="value">{{ confidence }}%</span></p>
+                <p><span class="label">Model Confidence: </span> <span class="value">{{ model_conf }}%</span></p>
+                <p><span class="label">Similarity Score: </span> <span class="value">{{ similarity }}%</span></p>
+
+                {% if first_aid %}
+                <div class="first-aid-box">
+                    <h3>⚠ Venomous Snake — First Aid Steps</h3>
+                    <ol>
+                        {% for step in first_aid %}
+                        <li>{{ step }}</li>
+                        {% endfor %}
+                    </ol>
+                </div>
+                {% endif %}
+
+                <button onclick="showDetails()">Show More Snake Info</button>
+                <div id="details" style="margin-top: 20px;"></div>
+            </div>
+            {% endif %}
         {% endif %}
 
-        <button onclick="showDetails()">Show More Snake Info</button>
-        <div id="details" style="margin-top:20px;"></div>
-    {% endif %}
-    {% endif %}
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
 
-    {% if error %}
-    <p style="color:red;">{{ error }}</p>
-    {% endif %}
+    </div>
 </body>
 </html>
