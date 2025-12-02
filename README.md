@@ -124,46 +124,55 @@ python app.py
 http://localhost:5000
 ---
 
-## Tech Stack
-
-### Core ML
-- TensorFlow / Keras  
-- MobileNetV2  
-- Cosine Similarity Embeddings  
-
-### Backend
-- Python Flask  
-- NumPy / scikit-learn  
-
-### Frontend
-- HTML / CSS / JavaScript  
-
-### Intelligence Layer
-- Gemini API for venom & first-aid context  
 
 ---
 
-## Usage
+## Tech Stack
 
-1. Launch the app  
-2. Upload a snake image  
-3. Get:
-   - predicted species  
-   - confidence score  
-   - similarity score  
-   - venom information  
-   - emergency response steps  
+### Languages  
+<p>
+  <img src="https://skillicons.dev/icons?i=python" height="50" />
+</p>
+
+### Deep Learning & ML  
+<p>
+  <img src="https://skillicons.dev/icons?i=tensorflow" height="50" />
+  <img src="https://skillicons.dev/icons?i=sklearn" height="50" />
+</p>
+<p>MobileNetV2 • CNNs • Cosine Similarity Embeddings • Data Augmentation</p>
+
+### Backend & Deployment  
+<p>
+  <img src="https://skillicons.dev/icons?i=flask" height="50" />
+</p>
+
+### Frontend  
+<p>
+  <img src="https://skillicons.dev/icons?i=html,css,js" height="50" />
+</p>
+
+### Database / Storage  
+<p>
+  <img src="https://skillicons.dev/icons?i=mongodb" height="50" />
+</p>
 
 ---
 
 ## Author
 
-**Hemanth Lokesh**  
-AI/ML Engineer | CSE-AI  
-GitHub: [Hemanthlokesh1705](https://github.com/Hemanthlokesh1705)
+<p align="center">
+  <a href="https://github.com/Hemanthlokesh1705">
+    <img src="https://img.shields.io/badge/GitHub-Hemanthlokesh1705-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
+
+<p align="center">
+  <strong>Built by Hemanth L — AI/ML Engineer</strong><br>
+  Focused on developing reliable, production-ready AI systems.
+</p>
 
 ---
 
 <p align="center">
-  <b>Building intelligent systems that save lives — one model at a time.</b>
+  <b>SmartSerpent — Turning Computer Vision into Life-Saving Intelligence</b>
 </p>
