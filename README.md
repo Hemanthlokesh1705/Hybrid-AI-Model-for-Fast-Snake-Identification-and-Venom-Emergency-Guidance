@@ -1,6 +1,9 @@
 <!-- HEADER -->
 <h1 align="center">SmartSerpent — Hybrid AI Snake Identification System</h1>
 <h3 align="center">Real-Time Snake Recognition • Venom Analysis • Emergency First-Aid Guidance</h3>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0aefff,100:005bff&height=250&section=header&text=SmartSerpent&fontSize=60&fontColor=ffffff&fontAlignY=35"/>
+</p>
 
 ---
 
