@@ -2,37 +2,35 @@
 <h1 align="center">SmartSerpent — Hybrid AI Snake Identification System</h1>
 <h3 align="center">Real-Time Snake Recognition • Venom Analysis • Emergency First-Aid Guidance</h3>
 
-<p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?color=00eaff&size=24&center=true&vCenter=true&width=700&lines=Hybrid+Deep+Learning+%7C+Cosine+Similarity+Verification;Real-Time+Snake+Species+Identification;Emergency+Venom+and+First-Aid+Guidance;Built+for+High-Risk+Rural+Environments" />
-</p>
-
 ---
 
-<!-- ABOUT -->
 ## Overview
 
-SmartSerpent is a **hybrid deep-learning system** designed to identify Indian snake species and provide **instant venom information and first-aid recommendations**.
+SmartSerpent is a **hybrid deep-learning system** designed to identify Indian snake species and provide **instant venom information and first-aid recommendations** in real time.
 
-Instead of blindly trusting a CNN classifier, SmartSerpent improves reliability by combining:
+It improves reliability and practical usefulness by combining:
 
-- **MobileNetV2 classifier**
-- **Cosine similarity-based embedding verification**
-- **Weighted score fusion**
-- **Bicubic upscaling for texture recovery**
-- **Gemini-powered venom & first-aid intelligence**
+- MobileNetV2 deep-learning classifier  
+- Cosine similarity-based embedding verification  
+- Bicubic upscaling for texture enhancement  
+- Weighted fusion scoring  
+- Gemini-powered venom & first-aid intelligence  
 
-The result is a **fast, robust, and medically useful AI model** suitable for real-world deployment.
+This results in a **robust, accurate, and deployable system** suitable for rural healthcare and emergency scenarios.
 
 ---
 
 ## Core Highlights
 
-### Hybrid Prediction Engine
-The model computes:
-- `model_confidence` (softmax from MobileNetV2)
-- `similarity_score` (cosine similarity on embeddings)
+### Hybrid Prediction Engine  
+The system calculates:
 
-Final score:
+- `model_confidence` → softmax output from MobileNetV2  
+- `similarity_score` → cosine similarity of embeddings  
+
+Then fuses them for improved reliability:
+
+
 final_score = 0.5 × model_confidence + 0.5 × similarity_score
 
 This significantly reduces misclassifications under:
