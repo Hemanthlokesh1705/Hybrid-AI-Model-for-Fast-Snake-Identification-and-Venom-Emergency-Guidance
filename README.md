@@ -1,167 +1,114 @@
-<!-- HEADER -->
-<h1 align="center">SmartSerpent — Hybrid AI Snake Identification System</h1>
-<h3 align="center">Real-Time Snake Recognition • Venom Analysis • Emergency First-Aid Guidance</h3>
+<h1 align="center">🐍 SmartSerpent: Hybrid AI for Life-Saving Snake Identification</h1>
+<h3 align="center">Real-Time Recognition, Venom Analysis, and Emergency Guidance</h3>
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0aefff,100:005bff&height=250&section=header&text=SmartSerpent&fontSize=60&fontColor=ffffff&fontAlignY=35"/>
 </p>
 
 ---
 
-## Overview
+## 💡 Overview & Problem Statement
 
-SmartSerpent is a **hybrid deep-learning system** designed to identify Indian snake species and provide **instant venom information and first-aid recommendations** in real time.
+SmartSerpent is a **robust, hybrid deep-learning system** engineered for fast, highly accurate identification of Indian snake species, coupled with **instant, actionable emergency information**.
 
-It improves reliability and practical usefulness by combining:
+This system addresses critical reliability challenges in field deployments (low resolution, poor lighting) by integrating multiple AI techniques:
 
-- MobileNetV2 deep-learning classifier  
-- Cosine similarity-based embedding verification  
-- Bicubic upscaling for texture enhancement  
-- Weighted fusion scoring  
-- Gemini-powered venom & first-aid intelligence  
-
-This results in a **robust, accurate, and deployable system** suitable for rural healthcare and emergency scenarios.
+* **Deep Learning Classifier:** Uses MobileNetV2 for foundational object recognition.
+* **Embedding Verification:** Implements Cosine Similarity to verify predictions and prevent misclassification.
+* **Texture Enhancement:** Applies Bicubic Upscaling to preserve fine-scale patterns in low-quality images.
+* **Weighted Fusion Scoring:** Combines model confidence and similarity scores for superior prediction stability.
+* **AI-Powered Guidance:** Leverages Gemini intelligence for context-aware venom analysis and first-aid recommendations.
 
 ---
 
-## Core Highlights
+## 🚀 Core Technical Highlights
 
-### Hybrid Prediction Engine  
-The system calculates:
+### 1. Hybrid Prediction Engine (The Fusion)
+To ensure reliability against visually similar species and poor image quality, the system fuses two independent scores:
 
-- `model_confidence` → softmax output from MobileNetV2  
-- `similarity_score` → cosine similarity of embeddings  
+- `model_confidence` → Softmax output from MobileNetV2
+- `similarity_score` → Cosine similarity of feature embeddings
 
-Then fuses them for improved reliability:
+The final prediction uses a weighted fusion formula:
 
+$$
+\text{final\_score} = 0.5 \times \text{model\_confidence} + 0.5 \times \text{similarity\_score}
+$$
 
-final_score = 0.5 × model_confidence + 0.5 × similarity_score
+**Impact:** This hybrid approach significantly reduces misclassifications under poor lighting, low resolution, and partial occlusion, providing a **+5.2% accuracy boost** over the base model.
 
-This significantly reduces misclassifications under:
-- poor lighting  
-- low resolution  
-- partial occlusion  
-- visually similar species  
+### 2. Bicubic Upscaling for Robust Feature Extraction
+Field images often suffer from blurriness. SmartSerpent preprocesses images using **bicubic interpolation** to enhance and preserve critical visual features before they are passed to the model, specifically:
+* Scale texture and patterns
+* Color gradients and subtle markings
 
----
-
-### Bicubic Upscaling for Clarity
-Field images are often blurry or low quality.  
-SmartSerpent applies **bicubic interpolation** before resizing to preserve:
-
-- scale texture  
-- color gradients  
-- pattern details  
-
-This boosts accuracy for species with fine-scale patterns.
+### 3. Real-Time Emergency Guidance
+SmartSerpent transforms from a classifier into a **life-saving emergency assistant**. Upon identification, it retrieves and presents critical data instantly:
+* **Venom Type:** (Neurotoxic / Hemotoxic / Cytotoxic / Mixed)
+* **Danger Severity:** A clear risk rating.
+* **Immediate First-Aid Steps:** Actionable, localized recommendations.
+* **Scientific and Habitat Information.**
 
 ---
 
-### Real-Time Venom & First-Aid Guidance
-Once identified, SmartSerpent retrieves:
+## 📊 Model Performance & Ablation Study
 
-- Venom type (neurotoxic / hemotoxic / cytotoxic / mixed)
-- Danger severity
-- Immediate first-aid steps
-- Habitat & distribution
-- Scientific information
+### Final Test Metrics
+* **Accuracy:** **79.3%**
+* **Weighted F1 Score:** 0.79
 
-This makes the system not just a classifier —  
-but a **life-saving emergency assistant**, especially in rural regions.
-
----
-
-## Supported Species
-
-- Checkered Keelback  
-- Green Tree Vine  
-- Indian Rock Python  
-- King Cobra  
-- Russell’s Viper  
-- Spectacled Cobra  
-- Banded Racer  
-- Common Krait  
-- Common Sandboa  
-- Common Trinket  
-- Rat Snake  
-- Saw-Scaled Viper  
+### Ablation Study: Impact of Hybrid Components
+| Model Version | Key Feature Added | Accuracy |
+| :--- | :--- | :--- |
+| **MobileNetV2 Only** | Baseline | 74.1% |
+| **+ Bicubic Upscaling** | Image pre-processing | 77.3% |
+| **+ Similarity Fusion** | **Final Hybrid Model** | **79.3%** |
 
 ---
 
-## Model Performance
+## 🛠️ System Workflow
 
-### Test Metrics
-- **Accuracy:** ~79.3%  
-- **Weighted F1 Score:** ~0.79  
+The user-facing workflow follows a clear, six-step pipeline:
 
-### Ablation Study
-| Model Version | Accuracy |
-|--------------|----------|
-| MobileNetV2 Only | 74.1% |
-| + Bicubic Upscaling | 77.3% |
-| + Similarity Fusion | **79.3%** |
-
-Hybrid fusion provides the best stability for real-world images.
+1.  User uploads snake image via web UI.
+2.  Image undergoes bicubic upscaling for texture enhancement.
+3.  MobileNetV2 extracts image features and predicts an initial class probability.
+4.  Embedding similarity is computed against known training data.
+5.  Hybrid score is calculated to determine the robust final prediction.
+6.  Venom profile and emergency first-aid guidance are retrieved and displayed.
 
 ---
 
-## How It Works
+## 📜 Supported Species (12 Total)
 
-1. User uploads image  
-2. Image undergoes bicubic upscaling  
-3. MobileNetV2 extracts features and predicts class  
-4. Embedding similarity is computed  
-5. Hybrid score decides final prediction  
-6. Venom and first-aid guidance is returned  
-
----
-
-## Installation
-
-### Install Dependencies
-pip install -r requirements.txt
-
-### Run Backend
-python app.py
-
-### Open UI
-http://localhost:5000
----
-
+| Venomous Species | Non-Venomous Species |
+| :--- | :--- |
+| King Cobra | Checkered Keelback |
+| Russell’s Viper | Green Tree Vine |
+| Spectacled Cobra | Indian Rock Python |
+| Common Krait | Banded Racer |
+| Saw-Scaled Viper | Common Sandboa |
+| | Common Trinket |
+| | Rat Snake |
 
 ---
 
-## Tech Stack
+## 💻 Tech Stack
 
-### Languages  
+### Languages & Frameworks
 <p>
-  <img src="https://skillicons.dev/icons?i=python" height="50" />
+  <img src="https://skillicons.dev/icons?i=python,flask,tensorflow,sklearn,html,css,js,mongodb" height="50" />
 </p>
 
-### Deep Learning & ML  
-<p>
-  <img src="https://skillicons.dev/icons?i=tensorflow" height="50" />
-  <img src="https://skillicons.dev/icons?i=sklearn" height="50" />
-</p>
-<p>MobileNetV2 • CNNs • Cosine Similarity Embeddings • Data Augmentation</p>
-
-### Backend & Deployment  
-<p>
-  <img src="https://skillicons.dev/icons?i=flask" height="50" />
-</p>
-
-### Frontend  
-<p>
-  <img src="https://skillicons.dev/icons?i=html,css,js" height="50" />
-</p>
-
-### Database / Storage  
-<p>
-  <img src="https://skillicons.dev/icons?i=mongodb" height="50" />
-</p>
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Deep Learning** | MobileNetV2, TensorFlow, Keras | Core image classification and feature extraction. |
+| **ML Engineering** | Cosine Similarity, scikit-learn | Implemented for embedding verification and robustness. |
+| **Backend API** | Python, Flask | RESTful API to handle image uploads and model predictions. |
+| **Database** | MongoDB | Stores rich, structured data for venom and first-aid guidance. |
 
 ---
 
-## Author
+## 👤 Author
 
 <p align="center">
   <a href="https://github.com/Hemanthlokesh1705">
@@ -169,13 +116,5 @@ http://localhost:5000
   </a>
 </p>
 
-<p align="center">
-  <strong>Built by Hemanth L — AI/ML Engineer</strong><br>
-  Focused on developing reliable, production-ready AI systems.
-</p>
-
----
-
-<p align="center">
-  <b>SmartSerpent — Turning Computer Vision into Life-Saving Intelligence</b>
-</p>
+**Hemanth L** — AI/ML Engineer
+*Focused on developing robust, production-ready AI systems with real-world impact.*
