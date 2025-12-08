@@ -30,9 +30,7 @@ To ensure reliability against visually similar species and poor image quality, t
 
 The final prediction uses a weighted fusion formula:
 
-$$
-\text{final\_score} = 0.5 \times \text{model\_confidence} + 0.5 \times \text{similarity\_score}
-$$
+final_score= 0.5 model_confidence+ 0.5 similarity_score
 
 **Impact:** This hybrid approach significantly reduces misclassifications under poor lighting, low resolution, and partial occlusion, providing a **+5.2% accuracy boost** over the base model.
 
@@ -59,9 +57,9 @@ SmartSerpent transforms from a classifier into a **life-saving emergency assista
 ### Ablation Study: Impact of Hybrid Components
 | Model Version | Key Feature Added | Accuracy |
 | :--- | :--- | :--- |
-| **MobileNetV2 Only** | Baseline | 74.1% |
-| **+ Bicubic Upscaling** | Image pre-processing | 77.3% |
-| **+ Similarity Fusion** | **Final Hybrid Model** | **79.3%** |
+| **MobileNetV2 Only** | Baseline | 79.3% |
+| **+ Bicubic Upscaling** | Image pre-processing | 82.2% |
+| **+ Similarity Fusion** | **Final Hybrid Model** | **85.6%** |
 
 ---
 
