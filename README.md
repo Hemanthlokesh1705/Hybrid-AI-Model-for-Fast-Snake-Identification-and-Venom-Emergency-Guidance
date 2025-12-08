@@ -51,8 +51,7 @@ SmartSerpent transforms from a classifier into a **life-saving emergency assista
 ## 📊 Model Performance & Ablation Study
 
 ### Final Test Metrics
-* **Accuracy:** **79.3%**
-* **Weighted F1 Score:** 0.79
+* **Base-Accuracy:** **79.3%**
 
 ### Ablation Study: Impact of Hybrid Components
 | Model Version | Key Feature Added | Accuracy |
